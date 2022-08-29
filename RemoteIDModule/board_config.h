@@ -41,5 +41,5 @@
 #define PIN_UART_RX 4
 
 #else
-#error "unsupported board"
+//#error "unsupported board"
 #endif

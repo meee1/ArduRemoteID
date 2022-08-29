@@ -47,8 +47,10 @@ bool WiFi_NAN::transmit(ODID_UAS_Data &UAS_data)
 {
     uint8_t buffer[1024] {};
 
+    Serial.write("transmit");
+
     int length;
-    if ((length = odid_wifi_build_nan_sync_beacon_frame((char *)WiFi_mac_addr,
+/*    if ((length = odid_wifi_build_nan_sync_beacon_frame((char *)WiFi_mac_addr,
                   buffer,sizeof(buffer))) > 0) {
         if (esp_wifi_80211_tx(WIFI_IF_AP,buffer,length,true) != ESP_OK) {
             return false;
@@ -62,6 +64,13 @@ bool WiFi_NAN::transmit(ODID_UAS_Data &UAS_data)
             return false;
         }
     }
+*/
+    if ((length = odid_wifi_build_message_pack_beacon_frame(&UAS_data, (char *)WiFi_mac_addr, "SSID", 4, 100, ++send_counter,  buffer,sizeof(buffer))) > 0) {
+     if (esp_wifi_80211_tx(WIFI_IF_AP,buffer,length,true) != ESP_OK) {
+            return false;
+        }
+    }
+    
 
     return true;
 }
