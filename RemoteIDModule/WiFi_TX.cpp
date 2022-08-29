@@ -47,8 +47,6 @@ bool WiFi_NAN::transmit(ODID_UAS_Data &UAS_data)
 {
     uint8_t buffer[1024] {};
 
-    Serial.write("transmit");
-
     int length;
 /*    if ((length = odid_wifi_build_nan_sync_beacon_frame((char *)WiFi_mac_addr,
                   buffer,sizeof(buffer))) > 0) {
